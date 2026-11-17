@@ -152,7 +152,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.04em;line-height:.92}
 .wa{background:var(--ink);color:var(--bg);border-radius:99px;padding:1.1rem 1.8rem;display:inline-flex;gap:.8rem;align-items:center;transition:transform .3s}
 .wa:hover{transform:translateY(-4px)}
 footer{padding:clamp(30px,5vw,70px) var(--pad) 20px;background:var(--bg)}
-.mark{font-size:clamp(3rem,13.4vw,17rem);font-weight:600;letter-spacing:-.065em;line-height:.8;white-space:nowrap;margin-bottom:clamp(20px,3vw,40px)}
+.mark{font-size:clamp(2rem,12vw,17rem);font-weight:600;letter-spacing:-.065em;line-height:.8;white-space:nowrap;margin-bottom:clamp(20px,3vw,40px)}
 footer div{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--mut);border-top:1px solid var(--line);padding-top:16px}
 
 /* desktop: pinned wedding reel must fit the viewport */
@@ -166,6 +166,12 @@ footer div{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;co
 
 /* mobile */
 @media (max-width:900px){
+  .hh{font-size:13.4vw}
+  .hh br{display:none}
+  .hall,.lit{padding-bottom:84px}
+  .stats b{font-size:10.4vw}
+  .about{padding-top:70px}
+  .big{font-size:8vw}
   .nav nav a:not(.pill){display:none}
   .hero-foot{grid-template-columns:1fr auto}
   .hero-foot span:nth-child(2){display:none}
