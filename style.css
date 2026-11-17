@@ -107,6 +107,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.04em;line-height:.92}
 .wed-track figcaption{margin-top:12px;color:var(--mut)}
 .wed-out{align-self:center;font-size:clamp(1.8rem,3.4vw,3.4rem);font-weight:600;letter-spacing:-.04em;line-height:1;padding:0 6vw 0 2vw;white-space:nowrap}
 .wed-out:hover{text-decoration:underline;text-underline-offset:8px}
+.wed-ui{display:none}
 .wed-bar{margin:clamp(24px,3vw,40px) var(--pad) clamp(30px,4vw,60px);height:1px;background:var(--line)}
 .wed-bar i{display:block;height:100%;background:var(--ink);transform-origin:left;transform:scaleX(0)}
 
@@ -184,12 +185,18 @@ footer div{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;co
   .wl:hover li{opacity:1}
   .wed-top{grid-template-columns:1fr}
   .wed-p{justify-self:start}
-  .wed-track{overflow-x:auto;width:auto;scrollbar-width:none}
-  .wed-track figure img{height:48vh}
-  .wed-bar{display:none}
-  .sv{grid-template-columns:1fr;height:auto;min-height:0;position:relative;top:auto}
-  .sv figure{height:200px}
-  .sv h3{margin:2rem 0 .8rem}
+  .wed-ui{display:flex;justify-content:space-between;padding:0 var(--pad);margin-bottom:14px;color:var(--ink)}
+  .wed-ui .swipe{animation:nudge 1.4s ease-in-out infinite;transition:opacity .4s}
+  @keyframes nudge{50%{transform:translateX(8px)}}
+  .wed-track{overflow-x:auto;width:auto;gap:12px;scroll-snap-type:x mandatory;scroll-padding-left:var(--pad);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .wed-track::-webkit-scrollbar{display:none}
+  .wed-track figure{flex:none;width:76vw;scroll-snap-align:start}
+  .wed-track figure img{width:100%;height:52vh;object-fit:cover}
+  .wed-out{scroll-snap-align:start;padding:0 12vw 0 4vw}
+  .sv{position:sticky;top:calc(var(--nav) + 10px + var(--i)*10px);height:min(74svh,600px);grid-template-columns:1fr;grid-template-rows:1fr 34%;gap:14px;margin-bottom:4vh}
+  .sv figure{height:100%}
+  .sv h3{margin:auto 0 .7rem;font-size:clamp(1.9rem,9vw,3rem)}
+  .sv p{font-size:.95rem;margin-bottom:.9rem}
   .steps{grid-template-columns:1fr 1fr}
   
   .cgrid{grid-template-columns:1fr}

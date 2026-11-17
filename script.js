@@ -95,13 +95,23 @@ function scrollAnims() {
 
   // services: each card recedes as the next one stacks over it
   const cards = $$('.sv');
-  if (innerWidth > 900) cards.slice(0, -1).forEach((c, i) => gsap.to(c, { scale: 0.93, ease: 'none',
-    scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: `top ${58 + 14 + (i + 1) * 14}px`, scrub: true } }));
+  cards.slice(0, -1).forEach((c, i) => gsap.to(c, { scale: 0.93, ease: 'none',
+    scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: () => `top ${parseFloat(getComputedStyle(cards[i + 1]).top)}px`, scrub: true } }));
 
   gsap.from('.steps li', { opacity: 0, y: 40, duration: 0.9, stagger: 0.1, ease: 'power3.out',
     scrollTrigger: { trigger: '.steps', start: 'top 88%' } });
   gsap.from('.cl li', { opacity: 0, y: 30, duration: 0.7, stagger: 0.04, ease: 'power2.out',
     scrollTrigger: { trigger: '.cl', start: 'top 85%' } });
+
+  // wedding carousel on touch: counter, progress and swipe hint follow the scroll position
+  const wt = $('#wedTrack'), figs = $$('figure', wt);
+  wt.addEventListener('scroll', () => {
+    if (innerWidth > 900) return;
+    const max = wt.scrollWidth - wt.clientWidth, n = Math.min(figs.length, Math.round(wt.scrollLeft / (figs[0].offsetWidth + 12)) + 1);
+    $('#wedCount').textContent = `${String(n).padStart(2, '0')} / ${figs.length}`;
+    gsap.set('#wedBar', { scaleX: wt.scrollLeft / max });
+    $('#wedHint').style.opacity = wt.scrollLeft > 20 ? 0 : 1;
+  }, { passive: true });
 
   // wedding reel: pinned horizontal scroll on desktop
   gsap.matchMedia().add('(min-width: 901px)', () => {
