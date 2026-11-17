@@ -128,15 +128,18 @@ if (canHover) {
   list.addEventListener('pointerleave', () => gsap.to(peek, { scale: 0, duration: 0.3, ease: 'power2.in', overwrite: 'auto' }));
 }
 
-/* ---------- boot: ~1s counter, then the curtain lifts ---------- */
-const cnt = $('#cnt'), o = { v: 0 };
-gsap.to(o, { v: 100, duration: 0.9, ease: 'power2.inOut',
-  onUpdate: () => cnt.textContent = String(Math.round(o.v)).padStart(2, '0'),
-  onComplete: () => {
-    gsap.to('#pre', { yPercent: -100, duration: 0.7, ease: 'expo.inOut', onComplete: () => $('#pre').remove() });
-    gsap.delayedCall(0.25, heroIn);
-    lenis.start();
-    scrollAnims();
-    ScrollTrigger.refresh();
-  } });
+/* ---------- boot: logo ring draws, then a circle of light opens ---------- */
+const pre = $('#pre'), ring = $('.pre-logo circle'), hole = { v: 0 };
+const maxH = Math.hypot(innerWidth, innerHeight) / 2 + 40;
+gsap.set(ring, { strokeDasharray: 358, strokeDashoffset: 358 });
+gsap.set('.pre-logo img', { scale: 0.6, opacity: 0 });
+gsap.set('.pre-word', { y: 12, opacity: 0 });
+gsap.timeline()
+  .to(ring, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut' })
+  .to('.pre-logo img', { scale: 1, opacity: 1, duration: 0.7, ease: 'back.out(1.7)' }, 0.15)
+  .to('.pre-word', { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.4)
+  .add(() => { heroIn(); lenis.start(); scrollAnims(); ScrollTrigger.refresh(); }, '+=0.15')
+  .to(hole, { v: 1, duration: 0.9, ease: 'power3.in',
+    onUpdate: () => pre.style.setProperty('--h', hole.v * maxH + 'px'),
+    onComplete: () => pre.remove() }, '<');
 })();
