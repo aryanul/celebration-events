@@ -120,13 +120,25 @@ if (canHover) {
   gsap.set(peek, { xPercent: 0, yPercent: -50, scale: 0, rotation: 0 });
   const qx = gsap.quickTo(peek, 'x', { duration: 0.6, ease: 'power3' }), qy = gsap.quickTo(peek, 'y', { duration: 0.6, ease: 'power3' });
   const qr = gsap.quickTo(peek, 'rotation', { duration: 0.5, ease: 'power3' });
-  let lx = 0;
-  list.addEventListener('pointermove', e => { qx(e.clientX + 60); qy(e.clientY); qr(Math.max(-10, Math.min(10, (e.clientX - lx) * 0.4))); lx = e.clientX; });
+  let mx = innerWidth / 2, my = innerHeight / 2, lx = mx, on = false;
+  // keep the preview beside the cursor and inside the viewport
+  const place = () => Math.min(mx + 60, innerWidth - peek.offsetWidth - 20);
+  addEventListener('pointermove', e => {
+    mx = e.clientX; my = e.clientY;
+    if (!on) return;
+    qx(place()); qy(my); qr(Math.max(-10, Math.min(10, (mx - lx) * 0.4))); lx = mx;
+  });
   $$('li', list).forEach(li => {
     new Image().src = li.dataset.img;
-    li.addEventListener('pointerenter', () => { peek.src = li.dataset.img; gsap.to(peek, { scale: 1, duration: 0.45, ease: 'back.out(1.6)', overwrite: 'auto' }); });
+    li.addEventListener('pointerenter', () => {
+      peek.src = li.dataset.img;
+      if (!on) gsap.set(peek, { x: place(), y: my });   // appear at the cursor even if entered by scrolling
+      else { qx(place()); qy(my); }
+      on = true;
+      gsap.to(peek, { scale: 1, duration: 0.45, ease: 'back.out(1.6)', overwrite: 'auto' });
+    });
   });
-  list.addEventListener('pointerleave', () => gsap.to(peek, { scale: 0, duration: 0.3, ease: 'power2.in', overwrite: 'auto' }));
+  list.addEventListener('pointerleave', () => { on = false; gsap.to(peek, { scale: 0, duration: 0.3, ease: 'power2.in', overwrite: 'auto' }); });
 }
 
 /* ---------- boot: logo ring draws, then a circle of light opens ---------- */
