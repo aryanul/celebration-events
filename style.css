@@ -48,8 +48,8 @@ h1,h2,h3{font-weight:600;letter-spacing:-.04em;line-height:.92}
 .hint .tch{display:none}
 @media (hover:none){.hint .hov{display:none}.hint .tch{display:inline}}
 .lit{--r:240px;--x:50%;--y:50%;
-  -webkit-mask-image:radial-gradient(circle at var(--x) var(--y),#000 calc(var(--r)*.5),transparent var(--r));
-  mask-image:radial-gradient(circle at var(--x) var(--y),#000 calc(var(--r)*.5),transparent var(--r))}
+  -webkit-mask-image:radial-gradient(circle at var(--x) var(--y),#000 calc(var(--r)*.5),rgba(0,0,0,.18) var(--r));
+  mask-image:radial-gradient(circle at var(--x) var(--y),#000 calc(var(--r)*.5),rgba(0,0,0,.18) var(--r))}
 .hs{position:absolute;inset:0;opacity:0}
 .hs:first-child{opacity:1}
 .hs img{width:100%;height:100%;object-fit:cover}
