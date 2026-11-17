@@ -130,9 +130,14 @@ h1,h2,h3{font-weight:600;letter-spacing:-.04em;line-height:.92}
 
 /* clients */
 .clients{padding:clamp(60px,9vw,140px) var(--pad)}
-.cl{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
-.cl li{padding:clamp(22px,3vw,44px) clamp(14px,1.6vw,24px);border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:clamp(1.05rem,1.7vw,1.6rem);font-weight:500;letter-spacing:-.03em;line-height:1.1;min-height:7.5rem;display:flex;align-items:flex-end;transition:background .3s,color .3s}
-.cl li:hover{background:var(--ink);color:var(--bg)}
+.clients{overflow:hidden}
+.lg{margin:0 calc(var(--pad)*-1);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.lg+.lg{margin-top:16px}
+.lg>div{display:flex;gap:16px;width:max-content;animation:mq 60s linear infinite}
+.lg.rev>div{animation-direction:reverse;animation-duration:70s}
+.lg:hover>div{animation-play-state:paused}
+.lg figure{flex:none;height:clamp(96px,10vw,140px);background:#fff;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;padding:0 clamp(18px,2vw,30px)}
+.lg figure img{height:68%;width:auto;max-width:none}
 .cities{margin-top:2.4rem;color:var(--mut);line-height:1.7}
 
 /* contact */
@@ -180,7 +185,7 @@ footer div{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;co
   .sv figure{height:200px}
   .sv h3{margin:2rem 0 .8rem}
   .steps{grid-template-columns:1fr 1fr}
-  .cl{grid-template-columns:repeat(2,1fr)}
+  
   .cgrid{grid-template-columns:1fr}
   .wa{justify-self:start}
 }
